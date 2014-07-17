@@ -630,10 +630,6 @@ dispatchDial (Parcel &p, RequestInfo *pRI) {
     status_t status;
 
     memset (&dial, 0, sizeof(dial));
-    /* This is needed in order to avoid a crash in qcom's ril library
-       It doesn't make much sense, as dial.uusInfo will be set to NULL
-       My best guess is that they are simply reading beyond *dial.... */
-    memset (&uusInfo, 0, sizeof(RIL_UUS_Info));
 
     dial.address = strdupReadString(p);
 
@@ -1060,7 +1056,6 @@ dispatchImsGsmSms(Parcel &p, RequestInfo *pRI, uint8_t retry, int32_t messageRef
     rism.messageRef = messageRef;
 
     startRequest;
-    appendPrintBuf("%sformat=%d,", printBuf, rism.tech);
     if (countStrings == 0) {
         // just some non-null pointer
         pStrings = (char **)alloca(sizeof(char *));
@@ -2342,7 +2337,6 @@ static int responseRilSignalStrength(Parcel &p,
 
     if (responselen >= sizeof (RIL_SignalStrength_HTC)) {
         RIL_SignalStrength_HTC *p_cur = ((RIL_SignalStrength_HTC *) response);
-
         p.writeInt32(p_cur->GW_SignalStrength.signalStrength);
         p.writeInt32(p_cur->GW_SignalStrength.bitErrorRate);
         p.writeInt32(p_cur->CDMA_SignalStrength.dbm);

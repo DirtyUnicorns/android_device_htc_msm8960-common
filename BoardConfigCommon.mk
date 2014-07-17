@@ -41,18 +41,8 @@ TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_SMP := true
 TARGET_CPU_VARIANT := krait
-TARGET_ARCH_VARIANT_FPU := neon-vfpv4
-
-# Krait optimizations
-TARGET_USE_KRAIT_PLD_SET := true
-TARGET_KRAIT_BIONIC_PLDOFFS := 10
-TARGET_KRAIT_BIONIC_PLDTHRESH := 10
-TARGET_KRAIT_BIONIC_BBTHRESH := 64
-TARGET_KRAIT_BIONIC_PLDSIZE := 64
 
 # Flags
-TARGET_USES_QCOM_BSP := true
-COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE
 COMMON_GLOBAL_CFLAGS += -DHTCLOG
 
 # QCOM hardware
@@ -61,6 +51,7 @@ TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 TARGET_QCOM_AUDIO_VARIANT := caf
 TARGET_QCOM_DISPLAY_VARIANT := caf
 TARGET_QCOM_MEDIA_VARIANT := caf
+TARGET_USES_QCOM_BSP := true
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
@@ -72,7 +63,7 @@ BOARD_HAVE_BLUETOOTH := true
 
 # Graphics
 USE_OPENGL_RENDERER := true
-#TARGET_DISPLAY_USE_RETIRE_FENCE := true
+TARGET_DISPLAY_USE_RETIRE_FENCE := true
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_ION := true
 BOARD_EGL_CFG := device/htc/msm8960-common/configs/egl.cfg
@@ -81,7 +72,33 @@ BOARD_EGL_CFG := device/htc/msm8960-common/configs/egl.cfg
 TARGET_PROVIDES_LIBLIGHT := true
 
 # Power
-TARGET_USES_CM_POWERHAL := true
+TARGET_POWERHAL_VARIANT := qcom
+
+# SELinux
+BOARD_SEPOLICY_DIRS += \
+    device/htc/msm8960-common/sepolicy
+
+BOARD_SEPOLICY_UNION += \
+    app.te \
+    bluetooth.te \
+    device.te \
+    domain.te \
+    drmserver.te \
+    file_contexts \
+    file.te \
+    hci_init.te \
+    healthd.te \
+    init_shell.te \
+    init.te \
+    keystore.te \
+    kickstart.te \
+    mediaserver.te \
+    rild.te \
+    surfaceflinger.te \
+    system.te \
+    ueventd.te \
+    wpa_socket.te \
+    wpa.te
 
 # Webkit
 ENABLE_WEBGL := true
