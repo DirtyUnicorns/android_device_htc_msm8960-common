@@ -49,6 +49,7 @@ PRODUCT_PACKAGES += \
     gralloc.msm8960 \
     hwcomposer.msm8960 \
     libgenlock \
+    liboverlay \
     memtrack.msm8960
 
 # Lights
@@ -57,6 +58,8 @@ PRODUCT_PACKAGES += \
 
 # OMX
 PRODUCT_PACKAGES += \
+    libc2dcolorconvert \
+    libdivxdrmdecrypt \
     libdashplayer \
     libOmxCore \
     libOmxVdec \
